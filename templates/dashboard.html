@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Forgery Detection AI{% endblock %}
+
+{% block content %}
+<div class="dashboard-header text-center slide-down">
+    <h1 class="main-title text-gradient">DICOM Forgery Analysis</h1>
+    <p class="subtitle">Upload a CT scan or medical image to detect tampering using our SRM + ResNet50 Deep Learning model.</p>
+</div>
+
+<div class="glassmorphism upload-panel fade-in">
+    <div id="drop-area" class="drop-area">
+        <input type="file" id="fileElem" accept="image/png, image/jpeg, image/jpg" onchange="handleFiles(this.files)">
+        <label class="button shadow-md" for="fileElem">
+            <i class="fa-solid fa-cloud-arrow-up text-gradient"></i>
+            <span class="upload-text">Drag & Drop Image Here<br><small>or click to browse</small></span>
+        </label>
+        <div id="upload-spinner" class="spinner hidden">
+            <div class="loader"></div>
+            <p>Processing with AI...</p>
+        </div>
+    </div>
+</div>
+
+<div id="results-panel" class="results-panel hidden">
+    <div class="verdict-card glassmorphism slide-up">
+        <h3><i class="fa-solid fa-brain"></i> AI Verdict</h3>
+        <div id="result-status" class="result-status">
+            <!-- Filled by JS -->
+        </div>
+        <div class="confidence-bar-container">
+            <div id="confidence-bar" class="confidence-bar" style="width: 0%"></div>
+        </div>
+        <p id="confidence-text" class="confidence-text text-muted"></p>
+    </div>
+
+    <!-- METADATA ADDITION -->
+    <div class="metadata-card glassmorphism slide-up delay-1 mt-4">
+        <h3><i class="fa-solid fa-info-circle"></i> Extracted Image Metadata</h3>
+        <div class="metadata-grid" id="metadata-container">
+            <!-- Filled by JS -->
+        </div>
+    </div>
+    <!-- END METADATA ADDITION -->
+
+    <div class="images-grid mt-4">
+        <!-- Original -->
+        <div class="img-card glassmorphism zoom-in">
+            <div class="img-header">
+                <i class="fa-solid fa-image"></i> Original Image
+            </div>
+            <img id="orig-img" src="" alt="Original">
+        </div>
+        <!-- ELA Map -->
+        <div class="img-card glassmorphism zoom-in delay-1">
+            <div class="img-header">
+                <i class="fa-solid fa-layer-group"></i> Error Level Analysis
+            </div>
+            <img id="ela-img" src="" alt="ELA Map">
+            <p class="img-desc">Highlights regions with different compression levels.</p>
+        </div>
+        <!-- Noise Map -->
+        <div class="img-card glassmorphism zoom-in delay-2">
+            <div class="img-header">
+                <i class="fa-solid fa-wave-square"></i> Noise Residuals (SRM)
+            </div>
+            <img id="noise-img" src="" alt="Noise Map">
+            <p class="img-desc">Exposes imperceptible pixel inconsistencies.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

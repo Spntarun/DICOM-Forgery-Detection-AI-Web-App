@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Forgery Detection AI{% endblock %}
+
+{% block content %}
+<div class="auth-container glassmorphism fade-in">
+    <div class="auth-header">
+        <i class="fa-solid fa-user-lock ai-icon"></i>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Log in to continue your forensic analysis</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('login') }}">
+        <div class="input-group">
+            <label for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="name@domain.com">
+        </div>
+        
+        <div class="input-group">
+            <label for="password"><i class="fa-solid fa-key"></i> Password</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block glow-btn shadow-md">
+            Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+    </form>
+    
+    <div class="auth-footer text-center mt-3">
+        <p>Don't have an account? <a href="{{ url_for('register') }}" class="text-gradient hover-und">Sign Up</a></p>
+    </div>
+</div>
+{% endblock %}
